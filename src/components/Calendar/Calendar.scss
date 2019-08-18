@@ -1,0 +1,159 @@
+$color-main: #1d6490;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.calendar {
+  display: inline-block;
+  position: relative;
+
+  &__container {
+    border-radius: 3px;
+    box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    position: absolute;
+    top: 100%;
+
+    &--active {
+      border: 1px solid #ccc;
+      display: flex;
+    }
+  }
+
+  &__type-control {
+    border-right: 1px solid #ccc;
+    flex-shrink: 0;
+    width: 5rem;
+    height: auto;
+  }
+
+  &__type {
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    padding: 10px;
+    text-align: left;
+    text-transform: uppercase;
+    width: 100%;
+
+    &--active {
+      background-color: $color-main;
+      color: #FFF;
+      position: relative;
+      &::after {
+        background-color: $color-main;
+        content: '';
+        top: 0;
+        height: 100%;
+        position: absolute;
+        right: -.5em;
+        width: .5em;
+      }
+    }
+  }
+
+  &__content {
+    min-height: 250px;
+    min-width: 330px;
+  }
+
+  .grid-summary {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .calendar-grid {
+    display: grid;
+    padding: 15px;
+    row-gap: 1rem;
+  }
+
+  .date-grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    
+    .grid-item {
+      min-width: 1.5rem;
+      padding: 5px;
+    }
+  }
+
+  .month-grid,
+  .year-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .date-option {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    
+    &--in-range {
+      background-color: rgba($color-main, 0.15);
+      position: relative;
+    }
+
+    @mixin range-handles {
+      background-color: $color-main;
+      border-color: $color-main;
+      border-style: solid;
+      content: '';
+      height: 18px;
+      position: absolute;
+      top: 0;
+      width: 8px;
+    }
+
+    &--range-start::before {
+      @include range-handles;
+      left: -5px;
+      border-bottom-left-radius: 40px;
+      border-top-left-radius: 40px;
+    }
+
+    &--range-end::after {
+      @include range-handles;
+      right: -5px;
+      border-bottom-right-radius: 40px;
+      border-top-right-radius: 40px;
+    }
+  }
+
+  .grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    text-align: center;
+    
+    &--active {
+      color: $color-main;
+      font-weight: 500;
+    }
+  }
+
+  .placeholder {
+    pointer-events: none;
+    background-color: transparent;
+    border: none;
+  }
+
+  .content-header {
+    background-color: rgba($color-main, 0.15);
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    width: 100%;
+
+    .top-nav {
+      background-color: transparent;
+      border: none;
+      color: $color-main;
+      font-size: 1em;
+      margin: 0 10px;
+    }  
+  }
+}
