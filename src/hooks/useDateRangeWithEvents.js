@@ -3,7 +3,6 @@ import useDateRange from './useDateRange';
 const useDateRangeWithEvents = (currentRange) => {
   const { range, setStart, setEnd } = useDateRange(currentRange);
 
-  console.log(currentRange, range)
   const stillDefault = currentRange[0] === range[0] && currentRange[1] === range[1];
 
   const onClick = (day, callback) => {

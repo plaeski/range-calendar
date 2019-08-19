@@ -1,34 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import moment from 'moment';
 import Button from '../../Button';
 
 const Years = ({ date, conditionalClasses, handleClick, handleHover }) => {
+  const [yearOffset, setYearOffset] = useState(0);
+  useEffect(() => setYearOffset(0), [date]);
+
   const selectedYear = date.year();
   const startOfRange = Math.floor(selectedYear / 12) * 12;
   const displayYears = [...Array(12).keys()].map(i => startOfRange + i);
   
   return (
     <>
-      <p className="grid-summary">{displayYears[0]} - {displayYears[11]}</p>
+      <div className="grid-header">
+        <button onClick={() => setYearOffset(yearOffset - 1)}>
+          <i className="material-icons">keyboard_arrow_left</i>
+        </button>
+          <p className="grid-summary">{displayYears[0]} - {displayYears[11]}</p>
+        <button onClick={() => setYearOffset(yearOffset + 1)}>
+          <i className="material-icons">keyboard_arrow_right</i>
+        </button>
+      </div>
       <div className="calendar-grid year-grid">
-        {displayYears.map(year =>(
-          <Button
-            className={classNames(
-              "grid-item",
-              'date-option',
-              {
-                'grid-item--active': selectedYear === year,
-                ...conditionalClasses(year),
-              }
-            )}
-            onClick={() => handleClick(year)}
-            onMouseOver={() => handleHover(year)}
-            onFocus={() => handleHover(year)}
-          >
-            {year}
-          </Button>
-        ))}
+        {displayYears.map(year => {
+          const yearValue = moment(date).year(year).add(yearOffset * 12, 'year').startOf('year').unix()
+          return (
+            <Button
+              className={classNames(
+                "grid-item",
+                'date-option',
+                {
+                  'grid-item--active': selectedYear === yearValue,
+                  ...conditionalClasses(yearValue),
+                }
+              )}
+              onClick={() => handleClick(yearValue)}
+              onMouseOver={() => handleHover(yearValue)}
+              onFocus={() => handleHover(yearValue)}
+            >
+              {moment(date).year(year).add(yearOffset * 12, 'year').startOf('year').format('YYYY')}
+            </Button>
+          )
+        })}
       </div>
     </>
   )

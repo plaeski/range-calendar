@@ -7,7 +7,6 @@ const useModalToggle = () => {
   useEffect(() => {
     const clearClick = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
-        console.log(modalRef.current, e.target)
         toggleOpen(false);
       }
     };

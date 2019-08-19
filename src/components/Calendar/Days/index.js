@@ -5,24 +5,13 @@ import withRange from '../withRange';
 
 const RangeDays = withRange(DateGrid, 'date');
 
-const createDateEntries = (totalDays, dayOffset) => {
-  let days = [...Array(totalDays).keys()].map(i => i + 1);
-
-  if (dayOffset > 0) {
-    const placeholders = [...Array(dayOffset).keys()].map(() => '');
-    days = [...placeholders, ...days];
-  }
-
-  return days;
-}
-
-const Days = ({ month, date, useRange, currentRange, onChange }) => {
-  const currentMonth = moment().month(month).startOf('month');
-  const days = createDateEntries(currentMonth.daysInMonth(), currentMonth.day())
+const Days = ({ date, useRange, currentRange, onChange }) => {
   if (useRange) {
+    const currentStart = currentRange.length ? moment(currentRange[0]) : moment();
+    const currentMonth = moment(currentStart).startOf('month');
+  
     return (
       <RangeDays
-        days={days}
         currentMonth={currentMonth}
         currentRange={currentRange}
         onChange={onChange}
@@ -30,9 +19,10 @@ const Days = ({ month, date, useRange, currentRange, onChange }) => {
     );
   }
 
+  const currentMonth = moment(date).startOf('month');
+
   return (
     <DateGrid
-      days={days}
       currentMonth={currentMonth}
       handleClick={onChange}
       conditionalClasses={day => ({ 'grid-item--active': day === date })}

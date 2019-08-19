@@ -16,17 +16,11 @@ const getInputValue = (range) => {
   return 'Select a date range';
 }
 
-const getCurrentStart = range => range.length ? range[0] : moment().startOf('day');
-const getCurrentEnd = range => range.length ? range[1] : moment().endOf('day');
-
 const RangeCalendar = (props) => {
   const [range, setCurrentRange] = useState([
     moment().startOf('day'),
     moment().endOf('day'),
   ]);
-
-  const currentStart = getCurrentStart(range);
-  const currentEnd = getCurrentEnd(range);
 
   const { open, toggleOpen, ref } = useModalToggle();
   const [activeCalendar, setActiveCalendar] = useState(DAY)
@@ -64,13 +58,13 @@ const RangeCalendar = (props) => {
         <div className="calendar__content">
           {activeCalendar === DAY && (
             <Days
-              month={currentStart.month()}
               currentRange={range}
               onChange={([start, end]) => {
                 setCurrentRange([
-                  moment(currentStart).date(start),
-                  moment(currentEnd).date(end),
+                  moment.unix(start).startOf('day'),
+                  moment.unix(end).endOf('day'),
                 ])
+                toggleOpen(false);
               }}
               useRange
             />
@@ -93,9 +87,10 @@ const RangeCalendar = (props) => {
               currentRange={range}
               onChange={([start, end]) => {
                 setCurrentRange([
-                  moment(currentStart).year(start).startOf('year'),
-                  moment(currentEnd).year(end).endOf('year'),
+                  moment.unix(start).startOf('year'),
+                  moment.unix(end).endOf('year'),
                 ])
+                toggleOpen(false);
               }}
               useRange
             />
