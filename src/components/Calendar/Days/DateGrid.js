@@ -19,6 +19,7 @@ const DateGrid = ({ currentMonth, days, conditionalClasses, handleClick, handleH
         <Button
           onClick={() => handleClick(day)}
           onMouseOver={() => handleHover(day)}
+          onFocus={() => handleHover(day)}
           tabIndex={day === '' ? -1 : null}
           className={classNames(
             "grid-item",

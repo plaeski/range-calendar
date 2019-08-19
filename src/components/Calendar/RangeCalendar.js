@@ -77,13 +77,15 @@ const RangeCalendar = (props) => {
           )}
           {activeCalendar === MONTH && (
             <Months
-            currentRange={range}
-            onChange={([start, end]) => {
+              currentRange={range}
+              onChange={([start, end]) => {
                 setCurrentRange([
-                  moment(currentStart).month(start),
-                  moment(currentEnd).month(end),
+                  moment.unix(start).startOf('month'),
+                  moment.unix(end).endOf('month'),
                 ])
+                toggleOpen(false);
               }}
+              useRange
             />
           )}
           {activeCalendar === YEAR && (
@@ -91,10 +93,11 @@ const RangeCalendar = (props) => {
               currentRange={range}
               onChange={([start, end]) => {
                 setCurrentRange([
-                  moment(currentStart).year(start),
-                  moment(currentEnd).year(end),
+                  moment(currentStart).year(start).startOf('year'),
+                  moment(currentEnd).year(end).endOf('year'),
                 ])
               }}
+              useRange
             />
           )}
         </div>

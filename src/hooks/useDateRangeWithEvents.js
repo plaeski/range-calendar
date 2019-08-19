@@ -1,8 +1,9 @@
 import useDateRange from './useDateRange';
 
 const useDateRangeWithEvents = (currentRange) => {
-  const { range, setStart, setEnd, clearRange } = useDateRange(currentRange);
+  const { range, setStart, setEnd } = useDateRange(currentRange);
 
+  console.log(currentRange, range)
   const stillDefault = currentRange[0] === range[0] && currentRange[1] === range[1];
 
   const onClick = (day, callback) => {
@@ -12,7 +13,6 @@ const useDateRangeWithEvents = (currentRange) => {
       setStart(day);
     } else if (range.length === 2) {
       callback(range);
-      clearRange();
     }
   }
 
@@ -22,9 +22,15 @@ const useDateRangeWithEvents = (currentRange) => {
     }
   }
 
-  const inRange = value => range.length === 2 && range[0] <= value && range[1] >= value;
+  const sortedRange = [...range].sort((a, b) => a - b);
 
-  return { range, onClick, onHover, inRange };
+  const inRange = value => (
+    range.length === 2 &&
+    sortedRange[0] <= value &&
+    sortedRange[1] >= value
+  );
+
+  return { range, sortedRange, onClick, onHover, inRange };
 }
 
 export default useDateRangeWithEvents;

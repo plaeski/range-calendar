@@ -1,3 +1,6 @@
+$material-design-icons-font-directory-path: '../dist/fonts/';
+@import '~material-design-icons-iconfont/src/material-design-icons';
+
 $color-main: #1d6490;
 
 * {
@@ -61,11 +64,6 @@ $color-main: #1d6490;
     min-width: 330px;
   }
 
-  .grid-summary {
-    margin-top: 10px;
-    text-align: center;
-  }
-
   .calendar-grid {
     display: grid;
     padding: 15px;
@@ -90,10 +88,12 @@ $color-main: #1d6490;
     background-color: transparent;
     border: none;
     padding: 10px;
+    position: relative;
     
+    &--range-start,
+    &--range-end,
     &--in-range {
       background-color: rgba($color-main, 0.15);
-      position: relative;
     }
 
     @mixin range-handles {
@@ -101,7 +101,7 @@ $color-main: #1d6490;
       border-color: $color-main;
       border-style: solid;
       content: '';
-      height: 18px;
+      height: 80%;
       position: absolute;
       top: 0;
       width: 8px;
@@ -122,16 +122,34 @@ $color-main: #1d6490;
     }
   }
 
-  .grid-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 3rem;
-    text-align: center;
-    
-    &--active {
-      color: $color-main;
-      font-weight: 500;
+  .grid {
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 20px;
+
+      button {
+        background-color: transparent;
+        border: none;
+      }
+    }
+
+    &-summary {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 3rem;
+      text-align: center;
+      
+      &--active {
+        color: $color-main;
+        font-weight: 500;
+      }
     }
   }
 

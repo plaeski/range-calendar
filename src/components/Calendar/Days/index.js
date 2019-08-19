@@ -1,7 +1,9 @@
 import React from 'react';
 import moment from 'moment';
-import RangeDays from './RangeDays';
 import DateGrid from './DateGrid';
+import withRange from '../withRange';
+
+const RangeDays = withRange(DateGrid, 'date');
 
 const createDateEntries = (totalDays, dayOffset) => {
   let days = [...Array(totalDays).keys()].map(i => i + 1);
