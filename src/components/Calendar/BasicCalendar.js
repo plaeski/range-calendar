@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment';
 import useModalToggle from '../../hooks/useModalToggle';
@@ -9,11 +10,20 @@ import Years from './Years';
 import { DAY, MONTH, YEAR } from './constants';
 import './Calendar.scss';
 
+const formats = {
+  [DAY]: 'MMM DD, YYYY',
+  [MONTH]: 'MMM YYYY',
+  [YEAR]: 'YYYY',
+};
+
+const controls = [['Day', DAY], ['Month', MONTH], ['Year', YEAR]];
+
 const BasicCalendar = (props) => {
   const [currentDate, setCurrentDate] = useState(moment().startOf('day'));
   const { open, toggleOpen, ref } = useModalToggle();
-  const [activeCalendar, setActiveCalendar] = useState(DAY)
-
+  const [activeCalendar, setActiveCalendar] = useState(props.type)
+  const calendarControls = props.type === MONTH ? controls.slice(1) : controls;
+  
   return (
     <div
       className="calendar"
@@ -21,7 +31,7 @@ const BasicCalendar = (props) => {
       onFocus={() => toggleOpen(true)}
     >
       <input
-        value={currentDate.format('MMM DD, YYYY')}
+        value={currentDate.format(formats[props.type])}
         id="calendar__input"
         onClick={() => (!open && toggleOpen(true))}
       />
@@ -34,45 +44,47 @@ const BasicCalendar = (props) => {
           },
         )}
       >
-        <div className="calendar__type-control">
-          {[['Day', DAY], ['Month', MONTH], ['Year', YEAR]].map(([label, value]) => (
-            <Button
-              className={classNames('calendar__type', { "calendar__type--active": activeCalendar === value })}
-              onClick={() => setActiveCalendar(value)}
-            >
-              { label }
-            </Button>
-          ))}
-        </div>
-        <div className="calendar__content">
-          <div className="content-header">
-            <Button className="top-nav" onClick={() => setActiveCalendar(DAY)}>
-              {currentDate.format('DD')}
-            </Button>
-            <Button className="top-nav" onClick={() => setActiveCalendar(MONTH)}>
-              {currentDate.format('MMMM')}
-            </Button>
-            <Button className="top-nav" onClick={() => setActiveCalendar(YEAR)}>
-              {currentDate.format('YYYY')}
-            </Button>
+        {props.type !== YEAR && (
+          <div className="calendar__type-control">
+            {calendarControls.map(([label, value]) => (
+              <Button
+                className={classNames('calendar__type', { "calendar__type--active": activeCalendar === value })}
+                onClick={() => setActiveCalendar(value)}
+              >
+                { label }
+              </Button>
+            ))}
           </div>
+        )}
+
+        <div className="calendar__content">
           {activeCalendar === DAY && (
             <Days
-              month={currentDate.month()}
-              date={currentDate.date()}
-              onChange={val => setCurrentDate(moment(currentDate).date(val))}
+              date={currentDate}
+              onChange={(val) => {
+                setCurrentDate(moment.unix(val))
+                props.type === DAY && toggleOpen(false);
+              }}
             />
           )}
+
           {activeCalendar === MONTH && (
             <Months
               date={currentDate}
-              onChange={val => setCurrentDate(moment(currentDate).month(val))}
+              onChange={val => {
+                setCurrentDate(moment(currentDate).month(moment.unix(val).month()));
+                props.type === MONTH ? toggleOpen(false) : setActiveCalendar(DAY);
+              }}
             />
           )}
+
           {activeCalendar === YEAR && (
             <Years
-              currentYear={currentDate.year()}
-              onChange={val => setCurrentDate(moment(currentDate).year(val))}
+              date={currentDate}
+              onChange={val => {
+                setCurrentDate(moment(currentDate).year(moment.unix(val).year()));
+                props.type === YEAR ? toggleOpen(false) : setActiveCalendar(MONTH);
+              }}
             />
           )}
         </div>
@@ -80,5 +92,13 @@ const BasicCalendar = (props) => {
     </div>
   )
 };
+
+BasicCalendar.propTypes = {
+  type: PropTypes.oneOf([DAY, MONTH, YEAR]),
+}
+
+BasicCalendar.defaultProps = {
+  type: DAY
+}
 
 export default BasicCalendar;

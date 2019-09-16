@@ -51,6 +51,7 @@ const DateGrid = ({ currentMonth, conditionalClasses, handleClick, handleHover }
               onMouseOver={() => handleHover(dayTimestamp)}
               onFocus={() => handleHover(dayTimestamp)}
               tabIndex={dayTimestamp === '' ? -1 : null}
+              id={`calendar-option-${dayTimestamp}`}
               className={classNames(
                 "grid-item",
                 {
@@ -68,6 +69,7 @@ const DateGrid = ({ currentMonth, conditionalClasses, handleClick, handleHover }
     </>
   );
 };
+
 
 DateGrid.defaultProps = {
   handleHover: () => null,

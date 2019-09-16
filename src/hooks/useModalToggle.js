@@ -4,15 +4,16 @@ const useModalToggle = () => {
   const [open, toggleOpen] = useState(false)
   const modalRef = useRef(null);
   
-  useEffect(() => {
-    const clearClick = (e) => {
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
-        toggleOpen(false);
-      }
-    };
-  
-    const clearFocus = (e) => e.key === 'Tab' && clearClick(e);
+  const clearClick = (e) => {
+    const calendarOptionClick = e.target && e.target.id.includes('calendar-option');
+    if (modalRef.current && !modalRef.current.contains(e.target) && !calendarOptionClick) {
+      toggleOpen(false);
+    }
+  };
 
+  const clearFocus = (e) => e.key === 'Tab' && clearClick(e);
+
+  useEffect(() => {
     document.addEventListener('keypress', clearFocus)
     document.addEventListener('click', clearClick);
     return () => {

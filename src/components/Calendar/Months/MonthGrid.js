@@ -32,11 +32,9 @@ const MonthGrid = ({ date, handleClick, handleHover, conditionalClasses, ...prop
               className={classNames(
                 "grid-item",
                 'date-option',
-                {
-                  ...conditionalClasses(monthValue),
-                  // 'grid-item--active': date.month() === value,
-                }
+                conditionalClasses(monthValue),
               )}
+              id={`calendar-option-${monthValue}`}
               onMouseOver={() => handleHover(monthValue)}
               onFocus={() => handleHover(monthValue)}
               onClick={() => handleClick(monthValue)}

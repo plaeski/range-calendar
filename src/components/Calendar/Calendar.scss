@@ -135,7 +135,6 @@ $color-main: #1d6490;
     }
 
     &-summary {
-      margin-top: 10px;
       text-align: center;
     }
 
@@ -147,8 +146,8 @@ $color-main: #1d6490;
       text-align: center;
       
       &--active {
-        color: $color-main;
-        font-weight: 500;
+        background-color: rgba($color-main, 0.25);
+        font-weight: 600;
       }
     }
   }

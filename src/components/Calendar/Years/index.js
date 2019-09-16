@@ -10,7 +10,13 @@ const Year = (props) => {
     const currentStart = props.currentRange.length ? props.currentRange[0] : moment().startOf('year');
     return <YearRange date={currentStart} {...props} />
   }
-  return <Years handleClick={props.onChange} {...props} />
+  return <Years
+    {...props}
+    handleClick={props.onChange}
+    conditionalClasses={unix => ({
+      'grid-item--active': unix === moment(props.date).startOf('year').unix()
+    })}
+  />
 }
 
 export default Year;

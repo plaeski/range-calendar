@@ -25,7 +25,7 @@ const Days = ({ date, useRange, currentRange, onChange }) => {
     <DateGrid
       currentMonth={currentMonth}
       handleClick={onChange}
-      conditionalClasses={day => ({ 'grid-item--active': day === date })}
+      conditionalClasses={day => ({ 'grid-item--active': day === moment(date).unix() })}
     />
   );
 }

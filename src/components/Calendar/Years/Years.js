@@ -11,14 +11,14 @@ const Years = ({ date, conditionalClasses, handleClick, handleHover }) => {
   const selectedYear = date.year();
   const startOfRange = Math.floor(selectedYear / 12) * 12;
   const displayYears = [...Array(12).keys()].map(i => startOfRange + i);
-  
+
   return (
     <>
       <div className="grid-header">
         <button onClick={() => setYearOffset(yearOffset - 1)}>
           <i className="material-icons">keyboard_arrow_left</i>
         </button>
-          <p className="grid-summary">{displayYears[0]} - {displayYears[11]}</p>
+          <p className="grid-summary">{displayYears[0] + (yearOffset * 12)} - {displayYears[11] + (yearOffset * 12)}</p>
         <button onClick={() => setYearOffset(yearOffset + 1)}>
           <i className="material-icons">keyboard_arrow_right</i>
         </button>
@@ -36,6 +36,7 @@ const Years = ({ date, conditionalClasses, handleClick, handleHover }) => {
                   ...conditionalClasses(yearValue),
                 }
               )}
+              id={`calendar-option-${yearValue}`}
               onClick={() => handleClick(yearValue)}
               onMouseOver={() => handleHover(yearValue)}
               onFocus={() => handleHover(yearValue)}
