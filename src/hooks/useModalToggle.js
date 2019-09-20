@@ -12,7 +12,10 @@ const useModalToggle = () => {
   };
 
   useEffect(() => {
-    const clearFocus = (e) => e.key === 'Tab' && clearClick(e);
+    const clearFocus = (e) => {
+      e.key === 'Tab' && clearClick(e)
+      return false;
+    };
 
     document.addEventListener('keypress', clearFocus)
     document.addEventListener('click', clearClick);

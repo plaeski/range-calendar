@@ -35,7 +35,7 @@ const BasicCalendar = (props) => {
         id="calendar__input"
         onClick={() => (!open && toggleOpen(true))}
       />
-      <div
+      <dialog
         id="calendar-container"
         className={classNames(
           'calendar__container',
@@ -88,7 +88,7 @@ const BasicCalendar = (props) => {
             />
           )}
         </div>
-      </div>
+      </dialog>
     </div>
   )
 };
