@@ -16,7 +16,7 @@ const createDateEntries = (totalDays, dayOffset) => {
 }
 
 const generateHeader = [...Array(7).keys()].map(i => (
-  <div key={i} className="grid-item" tabIndex="-1">
+  <div key={i} className="grid-item">
     {moment().day(i).format('ddd')}
   </div>
 ));

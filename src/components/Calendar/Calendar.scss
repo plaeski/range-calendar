@@ -70,20 +70,6 @@ $color-main: #1d6490;
     row-gap: 1rem;
   }
 
-  .date-grid {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    
-    .grid-item {
-      min-width: 1.5rem;
-      padding: 5px;
-    }
-  }
-
-  .month-grid,
-  .year-grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
   .date-option {
     background-color: transparent;
     border: none;
@@ -99,26 +85,50 @@ $color-main: #1d6490;
     @mixin range-handles {
       background-color: $color-main;
       border-color: $color-main;
-      border-style: solid;
       content: '';
-      height: 80%;
+      height: 100%;
       position: absolute;
       top: 0;
-      width: 8px;
+      width: 12px;
     }
 
     &--range-start::before {
       @include range-handles;
-      left: -5px;
+      left: -7px;
       border-bottom-left-radius: 40px;
       border-top-left-radius: 40px;
     }
 
     &--range-end::after {
       @include range-handles;
-      right: -5px;
+      right: -7px;
       border-bottom-right-radius: 40px;
       border-top-right-radius: 40px;
+    }
+  }
+
+  .date-grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    
+    .grid-item {
+      min-width: 1.5rem;
+      padding: 5px;
+    }
+  }
+
+  .month-grid,
+  .year-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .date-option--range-start::before,
+    .date-option--range-start::after {
+      width: 15px;
+    }
+    .date-option--range-start::before {
+      left: -15px;
+    }
+    .date-option--range-start::after {
+      right: -15px;
     }
   }
 
