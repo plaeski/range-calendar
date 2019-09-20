@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/main.css",
+    "main.js": "/main.237498eb31b2a75c1cf3.bundle.js",
+    "main.css.map": "/main.css.map",
+    "main.js.map": "/main.237498eb31b2a75c1cf3.bundle.js.map",
+    "runtime~main.js": "/runtime~main.237498eb31b2a75c1cf3.bundle.js",
+    "runtime~main.js.map": "/runtime~main.237498eb31b2a75c1cf3.bundle.js.map",
+    "vendors~main.js": "/vendors~main.237498eb31b2a75c1cf3.bundle.js",
+    "vendors~main.js.map": "/vendors~main.237498eb31b2a75c1cf3.bundle.js.map",
+    "iframe.html": "/iframe.html",
+    "precache-manifest.6213e45c40f1860e389c9717fb54d289.js": "/precache-manifest.6213e45c40f1860e389c9717fb54d289.js",
+    "service-worker.js": "/service-worker.js",
+    "static/media/Calendar.scss": "/static/media/MaterialIcons-Regular.da4ea5cd.ttf"
+  }
+}
